@@ -1,0 +1,13 @@
+# jetbrains idea
+**/.idea
+**/out
+**/*.iml
+
+# java
+**/*.class
+
+# log
+**/*.log
+
+# secret data
+**/db.properties
