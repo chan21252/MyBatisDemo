@@ -18,6 +18,7 @@ import java.io.InputStream;
  * @author Administrator
  */
 public class TestMyBatis {
+    private static final String CONFIG_FILENAME = "mybatis-config.xml";
     @Test
     public void test() throws IOException {
         String resource = "mybatis-config.xml";
@@ -66,5 +67,42 @@ public class TestMyBatis {
                 }
             }
         }
+    }
+
+    /**
+     * 测试增删改查
+     *
+     * @throws IOException IOException
+     */
+    @Test
+    public void testCURD() throws IOException {
+        InputStream inputStream = Resources.getResourceAsStream(CONFIG_FILENAME);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream, "development");
+        SqlSession session = sqlSessionFactory.openSession();
+
+        EmployeeMapper employeeMapper = session.getMapper(EmployeeMapper.class);
+
+        boolean result;
+        //测试添加
+        Employee employee = new Employee(null, "jerry", '1', "jerry@mybatis.com");
+        result = employeeMapper.addEmployee(employee);
+        System.out.println(result);
+        System.out.println("自增主键值为" + employee.getId());
+
+        //测试更新
+        Employee employee2 = new Employee(1, "jerry", '1', "jerry@mybatis.com");
+        result = employeeMapper.updateEmployee(employee2);
+        System.out.println(result);
+
+        //测试删除
+        result = employeeMapper.deleteEmployee(2);
+        System.out.println(result);
+
+        //手动提交
+        session.commit();
+
+        //释放资源
+        session.close();
+        inputStream.close();
     }
 }

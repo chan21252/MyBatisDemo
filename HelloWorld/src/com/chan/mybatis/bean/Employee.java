@@ -9,19 +9,26 @@ import org.apache.ibatis.type.Alias;
  */
 @Alias("employee")
 public class Employee {
-    private int id;
+    private Integer id;
     private String lastName;
-    private char gender;
+    private Character gender;
     private String email;
 
     public Employee() {
     }
 
-    public int getId() {
+    public Employee(Integer id, String lastName, Character gender, String email) {
+        this.id = id;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.email = email;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -33,11 +40,11 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public char getGender() {
+    public Character getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(Character gender) {
         this.gender = gender;
     }
 

@@ -2,6 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 命名空间：和接口名一致 -->
 <mapper namespace="com.chan.mybatis.dao.EmployeeMapper">
+    <!-- 添加 -->
+    <insert id="addEmployee" parameterType="employee"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tb_employee (last_name, email, gender) VALUES (#{lastName}, #{email}, #{gender})
+    </insert>
+
+    <!-- 更新 -->
+    <update id="updateEmployee" parameterType="employee">
+        UPDATE tb_employee SET last_name=#{lastName}, email=#{email}, gender=#{gender} WHERE id=#{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id="deleteEmployee" parameterType="int">
+        DELETE FROM tb_employee WHERE id=#{id}
+    </delete>
+
     <!-- id和接口方法名一致 -->
     <select id="getEmployeeById" resultType="employee">
         select id, last_name, gender, email  from tb_employee where id = #{id}

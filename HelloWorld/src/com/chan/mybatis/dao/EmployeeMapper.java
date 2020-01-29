@@ -16,4 +16,28 @@ public interface EmployeeMapper {
      * @return Employee
      */
     Employee getEmployeeById(int i);
+
+    /**
+     * 添加Employee
+     *
+     * @param employee Employee
+     * @return boolean
+     */
+    boolean addEmployee(Employee employee);
+
+    /**
+     * 更新Employee
+     *
+     * @param employee Employee
+     * @return boolean
+     */
+    boolean updateEmployee(Employee employee);
+
+    /**
+     * 根据ID删除Employee
+     *
+     * @param id id
+     * @return boolean
+     */
+    boolean deleteEmployee(int id);
 }
