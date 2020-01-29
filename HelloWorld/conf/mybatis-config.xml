@@ -3,9 +3,25 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
     <!-- DB资源文件 -->
     <properties resource="db.properties"/>
+
+    <!-- 运行时设置 -->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!-- 类别名 -->
+    <typeAliases>
+        <!--
+        <typeAlias type="com.chan.mybatis.bean.Employee" alias="employee"/>
+        -->
+        <package name="com.chan.mybatis.bean"/>
+    </typeAliases>
+
     <environments default="development">
+        <!-- 开发环境 -->
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
@@ -15,8 +31,20 @@
                 <property name="password" value="${jdbc_password}"/>
             </dataSource>
         </environment>
+        <!-- 生产环境 -->
+        <environment id="product">
+            <transactionManager type="JDBC"/>
+            <dataSource type="com.chan.mybatis.util.DruidDataSourceFactory">
+                <property name="driverClass" value="${druid.driverClassName}"/>
+                <property name="url" value="${druid.url}"/>
+                <property name="username" value="${druid.username}"/>
+                <property name="password" value="${druid.password}"/>
+            </dataSource>
+        </environment>
     </environments>
+    <!-- SQL映射 -->
     <mappers>
         <mapper resource="EmployeeMapper.xml"/>
+        <mapper class="com.chan.mybatis.dao.EmployeeMapperAnnotation"/>
     </mappers>
 </configuration>

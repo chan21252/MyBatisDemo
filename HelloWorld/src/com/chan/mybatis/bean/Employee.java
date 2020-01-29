@@ -1,5 +1,13 @@
 package com.chan.mybatis.bean;
 
+import org.apache.ibatis.type.Alias;
+
+/**
+ * Employee类
+ *
+ * @author Administrator
+ */
+@Alias("employee")
 public class Employee {
     private int id;
     private String lastName;
