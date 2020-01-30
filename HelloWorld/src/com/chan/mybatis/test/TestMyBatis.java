@@ -11,6 +11,10 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * MyBatis测试类
@@ -97,6 +101,39 @@ public class TestMyBatis {
         //测试删除
         result = employeeMapper.deleteEmployee(2);
         System.out.println(result);
+
+        //手动提交
+        session.commit();
+
+        //释放资源
+        session.close();
+        inputStream.close();
+    }
+
+    @Test
+    public void testParams() throws IOException {
+        InputStream inputStream = Resources.getResourceAsStream(CONFIG_FILENAME);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream, "development");
+        SqlSession session = sqlSessionFactory.openSession();
+
+        EmployeeMapper employeeMapper = session.getMapper(EmployeeMapper.class);
+
+        //测试多个参数
+        Employee employee1 = employeeMapper.getEmployeeByIdAndLastName(1, "jerry");
+        System.out.println(employee1);
+
+        //测试Map
+        Map<String, Object> empMap = new HashMap<String, Object>(2);
+        empMap.put("id", 1);
+        empMap.put("lastName", "jerry");
+        Employee employee2 = employeeMapper.getEmployeeByMap(empMap);
+        System.out.println(employee2);
+
+        //测试List
+        List<Integer> ids = new ArrayList<Integer>();
+        ids.add(1);
+        Employee employee3 = employeeMapper.getEmployeeByList(ids);
+        System.out.println(employee3);
 
         //手动提交
         session.commit();

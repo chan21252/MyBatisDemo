@@ -22,4 +22,14 @@
     <select id="getEmployeeById" resultType="employee">
         select id, last_name, gender, email  from tb_employee where id = #{id}
     </select>
+
+    <select id="getEmployeeByIdAndLastName" resultType="com.chan.mybatis.bean.Employee">
+        select id, last_name, gender, email  from tb_employee where id = #{id} AND last_name=#{lastName}
+    </select>
+    <select id="getEmployeeByMap" resultType="com.chan.mybatis.bean.Employee">
+        select id, last_name, gender, email  from tb_employee where id = #{map.id} AND last_name=#{map.lastName}
+    </select>
+    <select id="getEmployeeByList" resultType="com.chan.mybatis.bean.Employee">
+        select id, last_name, gender, email  from tb_employee where id = #{collection[0]}
+    </select>
 </mapper>

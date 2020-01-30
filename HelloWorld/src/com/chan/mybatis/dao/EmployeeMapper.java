@@ -1,6 +1,10 @@
 package com.chan.mybatis.dao;
 
 import com.chan.mybatis.bean.Employee;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Employee数据接口
@@ -40,4 +44,29 @@ public interface EmployeeMapper {
      * @return boolean
      */
     boolean deleteEmployee(int id);
+
+    /**
+     * 测试多个参数
+     *
+     * @param id       ID
+     * @param lastName LastName
+     * @return Employee
+     */
+    Employee getEmployeeByIdAndLastName(@Param("id") Integer id, @Param("lastName") String lastName);
+
+    /**
+     * 根据Map里的ID和LastName查询
+     *
+     * @param empMap Map
+     * @return Employee
+     */
+    Employee getEmployeeByMap(@Param("map") Map<String, Object> empMap);
+
+    /**
+     * 根据List第一个元素获取Employee
+     *
+     * @param ids List
+     * @return Employee
+     */
+    Employee getEmployeeByList(List<Integer> ids);
 }
