@@ -1,0 +1,7 @@
+CREATE DATABASE `mybatis` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
+
+CREATE USER 'test'@'localhost' IDENTIFIED BY '123456'; 
+
+GRANT ALL PRIVILEGES ON mybatis.* TO 'test'@'localhost' IDENTIFIED BY '123456';
+
+FLUSH PRIVILEGES;
