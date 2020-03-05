@@ -3,9 +3,41 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chan.mybatis.dao.UserDao">
+
+    <!-- 预定义sql -->
+    <sql id="userColumns">${alias}.id, ${alias}.username, ${alias}.password</sql>
+
     <select id="selectUserById" resultType="user">
-        select id, username, password
-        from user
+        select
+        <include refid="userColumns">
+            <property name="alias" value="t1"/>
+        </include>
+        from user t1
         where id = #{id}
     </select>
+
+    <insert id="insertUser" parameterType="user" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user (username, password)
+        VALUES (#{username}, #{password})
+    </insert>
+
+    <insert id="insertUserByMap" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user (username, password)
+        VALUES (#{username}, #{password})
+    </insert>
+
+    <insert id="insertUserList" parameterType="list">
+        INSERT INTO user (username, password) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.username}, #{item.password})
+        </foreach>
+    </insert>
+
+    <update id="updatePasswordById" parameterType="user">
+        UPDATE user SET password = #{password} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteUserById" parameterType="int">
+        DELETE FROM user where id = #{id}
+    </delete>
 </mapper>
