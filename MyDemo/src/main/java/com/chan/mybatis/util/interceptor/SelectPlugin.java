@@ -27,7 +27,7 @@ public class SelectPlugin implements Interceptor {
     }
 
     public Object plugin(Object o) {
-        System.out.println("插件...");
+        //System.out.println("插件...");
         return o;
     }
 

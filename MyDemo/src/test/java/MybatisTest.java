@@ -11,6 +11,26 @@ import java.io.InputStream;
 
 public class MybatisTest {
 
+    private static SqlSessionFactory sqlSessionFactory;
+
+    static {
+        InputStream inputstream = null;
+        try {
+            inputstream = Resources.getResourceAsStream("mybatis.xml");
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputstream, "oracle");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (inputstream != null) {
+                    inputstream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Test
     public void testDataSource() {
         InputStream inputstream = null;
@@ -31,5 +51,17 @@ public class MybatisTest {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Test
+    public void testAddUser() {
+        User user = new User();
+        user.setUsername("chan");
+        user.setPassword("123456");
+        SqlSession session = sqlSessionFactory.openSession();
+        UserDao userDao = session.getMapper(UserDao.class);
+        userDao.addUser(user);
+        session.commit();
+        session.close();
     }
 }
