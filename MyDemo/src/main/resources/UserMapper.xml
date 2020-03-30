@@ -4,7 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chan.mybatis.dao.UserDao">
     <insert id="addUser" parameterType="user" useGeneratedKeys="true" keyProperty="id" databaseId="MySQL">
-        INSERT INTO user (username, password) VALUES (#{username}, #{password});
+        INSERT INTO user (username, password)
+        VALUES (#{username}, #{password});
     </insert>
 
     <insert id="addUser" parameterType="user" databaseId="Oracle">
@@ -21,6 +22,21 @@
     </select>
 
     <select id="selectUserById" resultType="user" databaseId="Oracle">
-        Select "id", "username", "password" from TEST."user" WHERE "id" = #{id}
+        Select "id", "username", "password"
+        from TEST."user"
+        WHERE "id" = #{id}
+    </select>
+
+    <select id="selectUserByIdAndUserName" resultType="com.chan.mybatis.pojo.User">
+        select id, username, password
+        from user
+        where id = #{id}
+          AND username = #{arg1}
+    </select>
+
+    <select id="selectUserByList" resultType="com.chan.mybatis.pojo.User">
+        select id, username, password
+        from user
+        where id = #{list[0]}
     </select>
 </mapper>

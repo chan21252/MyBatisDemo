@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MybatisTest {
 
@@ -17,7 +19,7 @@ public class MybatisTest {
         InputStream inputstream = null;
         try {
             inputstream = Resources.getResourceAsStream("mybatis.xml");
-            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputstream, "oracle");
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputstream, "mysql");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -33,24 +35,11 @@ public class MybatisTest {
 
     @Test
     public void testDataSource() {
-        InputStream inputstream = null;
-        try {
-            inputstream = Resources.getResourceAsStream("mybatis.xml");
-            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputstream);
-            SqlSession session = sqlSessionFactory.openSession();
-            UserDao userDao = session.getMapper(UserDao.class);
-            User user = userDao.selectUserById(1);
-            System.out.println(user);
-            session.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (inputstream != null) inputstream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        SqlSession session = sqlSessionFactory.openSession();
+        UserDao userDao = session.getMapper(UserDao.class);
+        User user = userDao.selectUserById(1);
+        System.out.println(user);
+        session.close();
     }
 
     @Test
@@ -61,6 +50,27 @@ public class MybatisTest {
         SqlSession session = sqlSessionFactory.openSession();
         UserDao userDao = session.getMapper(UserDao.class);
         userDao.addUser(user);
+        session.commit();
+        session.close();
+    }
+
+    @Test
+    public void testSelectUserByIdAndUserName() {
+        SqlSession session = sqlSessionFactory.openSession();
+        UserDao userDao = session.getMapper(UserDao.class);
+        User user = userDao.selectUserByIdAndUserName(1, "admin");
+        System.out.println(user);
+        session.commit();
+        session.close();
+    }
+
+    @Test
+    public void testSelectUserByList() {
+        SqlSession session = sqlSessionFactory.openSession();
+        UserDao userDao = session.getMapper(UserDao.class);
+        List<Integer> idList = new ArrayList<Integer>();
+        idList.add(1);
+        userDao.selectUserByList(idList);
         session.commit();
         session.close();
     }
