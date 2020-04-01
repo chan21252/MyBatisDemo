@@ -8,6 +8,7 @@
 
     <typeAliases>
         <typeAlias type="com.chan.mybatis.pojo.User" alias="user"/>
+        <package name="com.chan.mybatis.pojo"/>
     </typeAliases>
 
     <plugins>
@@ -44,5 +45,6 @@
     <mappers>
         <mapper resource="UserMapper.xml"/>
         <mapper resource="UserMapperPlus.xml"/>
+        <mapper resource="BlogMapper.xml"/>
     </mappers>
 </configuration>
