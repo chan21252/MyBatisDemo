@@ -63,4 +63,17 @@
                  left outer join tag T on PT.tag_id = T.id
         where B.id = #{id};
     </select>
+
+    <resultMap id="BlogMapStep" type="Blog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <association property="author" select="com.chan.mybatis.dao.AuthorMapper.selectAuthorById"
+                     column="author_id">
+        </association>
+    </resultMap>
+    <select id="selectBlogByIdStep" resultType="com.chan.mybatis.pojo.Blog" resultMap="BlogMapStep">
+        SELECT id, title, author_id
+        FROM blog
+        WHERE id = #{id}
+    </select>
 </mapper>

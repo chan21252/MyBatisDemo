@@ -6,6 +6,14 @@
 <configuration>
     <properties resource="db.properties"/>
 
+    <settings>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--
+        <setting name="aggressiveLazyLoading" value="false"/>
+        -->
+        <setting name="logImpl" value="SLF4J"/>
+    </settings>
+
     <typeAliases>
         <typeAlias type="com.chan.mybatis.pojo.User" alias="user"/>
         <package name="com.chan.mybatis.pojo"/>
@@ -46,5 +54,6 @@
         <mapper resource="UserMapper.xml"/>
         <mapper resource="UserMapperPlus.xml"/>
         <mapper resource="BlogMapper.xml"/>
+        <mapper resource="AuthorMapper.xml"/>
     </mappers>
 </configuration>

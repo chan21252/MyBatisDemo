@@ -41,4 +41,15 @@ public class BlogMapperTest {
         session.commit();
         session.close();
     }
+
+    @Test
+    public void testSelectBlogByIdStep() {
+        SqlSession session = sqlSessionFactory.openSession();
+        BlogMapper blogMapper = session.getMapper(BlogMapper.class);
+        Blog blog = blogMapper.selectBlogByIdStep(4);
+        System.out.println(blog.getTitle());
+        System.out.println(blog);
+        session.commit();
+        session.close();
+    }
 }

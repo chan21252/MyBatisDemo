@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chan.mybatis.dao.AuthorMapper">
+    <select id="selectAuthorById" resultType="com.chan.mybatis.pojo.Author">
+        SELECT id, username, password, email, bio, favourite_section as favouriteSection
+        FROM author
+        WHERE id = #{id}
+    </select>
+</mapper>
